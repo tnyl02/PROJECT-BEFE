@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  หากคุณใช้ Create React App
+  อาจจะต้องตรวจสอบให้แน่ใจว่าไฟล์นี้ถูกนำเข้าใน src/index.js
+*/
