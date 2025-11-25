@@ -24,25 +24,34 @@ const StatusCell = ({ status }) => {
 };
 
 // =====================================================================
-// MODAL
+// MODAL (เวอร์ชันใหม่เหมือน Volleyball 100%)
 // =====================================================================
-const BookingModal = ({ message, onClose }) => {
+const BookingModal = ({ message, onClose, isSuccess = false }) => {
+    const iconColor = isSuccess ? 'text-green-500' : 'text-red-500';
+    const title = isSuccess ? 'สำเร็จ' : 'แจ้งเตือน';
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm space-y-4">
                 <div className="flex justify-between items-center border-b pb-3">
                     <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                        <AlertTriangle className="w-5 h-5 text-red-500 mr-2" />
-                        แจ้งเตือน
+                        {isSuccess ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${iconColor} mr-2`} viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        ) : (
+                            <AlertTriangle className={`w-5 h-5 ${iconColor} mr-2`} />
+                        )}
+                        {title}
                     </h3>
-                    <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100">
+                    <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition">
                         <X className="w-5 h-5 text-gray-500" />
                     </button>
                 </div>
                 <p className="text-gray-700">{message}</p>
-                <button
-                    onClick={onClose}
-                    className="w-full bg-[#77AADD] text-white font-bold py-2 rounded-lg hover:bg-[#6699CC] transition"
+                <button 
+                    onClick={onClose} 
+                    className={`w-full ${isSuccess ? 'bg-green-500 hover:bg-green-600' : 'bg-[#77AADD] hover:bg-[#6699CC]'} text-white font-bold py-2 rounded-lg transition`}
                 >
                     ตกลง
                 </button>
@@ -87,9 +96,12 @@ const BasketballBookingPage = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [isModalSuccess, setIsModalSuccess] = useState(false);
 
-    const showCustomAlert = (message) => {
+    // ทำให้ popup ส่งค่า success ได้
+    const showCustomAlert = (message, isSuccess = false) => {
         setModalMessage(message);
+        setIsModalSuccess(isSuccess);
         setShowModal(true);
     };
 
@@ -132,12 +144,20 @@ const BasketballBookingPage = () => {
         sessionStorage.setItem("basketballHasBooked", "true");
 
         setIsMaxLimitReached(true);
-        showCustomAlert("จองสำเร็จแล้ว!");
+
+        // ใช้ popup แบบ success
+        showCustomAlert("จองสนามสำเร็จ!", true);
     };
 
     return (
         <div className={`min-h-screen ${primaryBackgroundColor} p-4 md:p-8`}>
-            {showModal && <BookingModal message={modalMessage} onClose={() => setShowModal(false)} />}
+            {showModal && (
+                <BookingModal
+                    message={modalMessage}
+                    onClose={() => setShowModal(false)}
+                    isSuccess={isModalSuccess}
+                />
+            )}
 
             <div className="max-w-6xl mx-auto space-y-8 rounded-3xl bg-gray-50 p-6 shadow-2xl">
 
@@ -171,7 +191,6 @@ const BasketballBookingPage = () => {
 
                     <form onSubmit={handleBooking} className="space-y-4">
                         <div className="flex flex-col sm:flex-row gap-4">
-
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">สนาม</label>
                                 <select
