@@ -3,7 +3,7 @@ import { ArrowLeft, AlertTriangle, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // =====================================================================
-// 🧩 STATUS CELL
+// STATUS CELL
 // =====================================================================
 const StatusCell = ({ status }) => {
     let bgColor;
@@ -24,7 +24,7 @@ const StatusCell = ({ status }) => {
 };
 
 // =====================================================================
-// 🧩 BOOKING MODAL
+// MODAL
 // =====================================================================
 const BookingModal = ({ message, onClose }) => {
     return (
@@ -52,7 +52,7 @@ const BookingModal = ({ message, onClose }) => {
 };
 
 // =====================================================================
-// 🧩 LOAD DATA FROM SESSION STORAGE
+// LOAD DATA
 // =====================================================================
 const loadBookingData = () => {
     const saved = sessionStorage.getItem("basketballBooking");
@@ -67,7 +67,7 @@ const loadBookingData = () => {
 };
 
 // =====================================================================
-// 🏀 MAIN PAGE
+// MAIN PAGE
 // =====================================================================
 const BasketballBookingPage = () => {
     const navigate = useNavigate();
@@ -77,10 +77,9 @@ const BasketballBookingPage = () => {
     const buttonColor = 'bg-[#77AADD]';
     const tableHeaderColor = 'bg-[#EDE7F6]';
 
-    // State
     const [bookingData, setBookingData] = useState(loadBookingData);
     const [isMaxLimitReached, setIsMaxLimitReached] = useState(
-        sessionStorage.getItem("hasBooked") === "true"
+        sessionStorage.getItem("basketballHasBooked") === "true"
     );
 
     const [selectedCourt, setSelectedCourt] = useState('');
@@ -99,13 +98,13 @@ const BasketballBookingPage = () => {
     const timeOptions = bookingData.map((d) => d.time);
 
     // =====================================================================
-    // 🧩 HANDLE BOOKING (SESSION STORAGE VERSION)
+    // HANDLE BOOKING
     // =====================================================================
     const handleBooking = (e) => {
         e.preventDefault();
 
         if (isMaxLimitReached) {
-            showCustomAlert("คุณได้ทำการจองแล้วในเซสชันนี้");
+            showCustomAlert("คุณได้ทำการจองบาสเกตบอลแล้วในเซสชันนี้");
             return;
         }
 
@@ -120,7 +119,6 @@ const BasketballBookingPage = () => {
             return;
         }
 
-        // Update booking status
         const newBookingData = bookingData.map(row => {
             if (row.time === selectedTime) {
                 return { ...row, [selectedCourt]: "จองแล้ว" };
@@ -130,17 +128,13 @@ const BasketballBookingPage = () => {
 
         setBookingData(newBookingData);
 
-        // ⭐ Save to sessionStorage
         sessionStorage.setItem("basketballBooking", JSON.stringify(newBookingData));
-        sessionStorage.setItem("hasBooked", "true");
+        sessionStorage.setItem("basketballHasBooked", "true");
 
         setIsMaxLimitReached(true);
         showCustomAlert("จองสำเร็จแล้ว!");
     };
 
-    // =====================================================================
-    // UI
-    // =====================================================================
     return (
         <div className={`min-h-screen ${primaryBackgroundColor} p-4 md:p-8`}>
             {showModal && <BookingModal message={modalMessage} onClose={() => setShowModal(false)} />}
@@ -166,7 +160,7 @@ const BasketballBookingPage = () => {
                     <div className="flex items-start p-4 bg-orange-100 border-l-4 border-orange-500 text-orange-800 rounded-xl shadow-md">
                         <AlertTriangle className="w-6 h-6 mr-3 mt-0.5 text-orange-600" />
                         <p className="font-semibold text-gray-800">
-                            คุณจองแบดมินตันครบ 1 ชั่วโมงแล้วในวันนี้ - แต่คุณยังสามารถจองกีฬาประเภทอื่นได้
+                            คุณจองบาสเกตบอลครบ 1 ชั่วโมงแล้ว — แต่ยังสามารถจองกีฬาประเภทอื่นได้
                         </p>
                     </div>
                 )}
@@ -178,7 +172,6 @@ const BasketballBookingPage = () => {
                     <form onSubmit={handleBooking} className="space-y-4">
                         <div className="flex flex-col sm:flex-row gap-4">
 
-                            {/* Court */}
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">สนาม</label>
                                 <select
@@ -196,7 +189,6 @@ const BasketballBookingPage = () => {
                                 </select>
                             </div>
 
-                            {/* Time */}
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">เวลา</label>
                                 <select

@@ -83,8 +83,7 @@ const VolleyballBookingPage = () => {
     };
 
     // ================== ตาราง =====================
-    const courtHeaders = ['สนาม1'];
-    const courtKeys = ['C1'];
+
 
     const initialBookingData = [
         { time: '17.00-18.00', C1: 'ว่าง' },

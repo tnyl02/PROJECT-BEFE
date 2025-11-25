@@ -57,17 +57,17 @@ const BookingModal = ({ message, onClose }) => {
 const loadBookingData = () => {
     const saved = sessionStorage.getItem("badmintonBooking");
     return saved ? JSON.parse(saved) : [
-        { time: '17.00-18.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
-        { time: '18.00-19.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
-        { time: '19.00-20.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
-        { time: '20.00-21.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
-        { time: '21.00-22.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
-        { time: '22.00-23.00', C1: 'ว่าง', C2: 'ว่าง' , C3: 'ว่าง' , C4: 'ว่าง', C5: 'ว่าง' , C6: 'ว่าง'},
+        { time: '17.00-18.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
+        { time: '18.00-19.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
+        { time: '19.00-20.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
+        { time: '20.00-21.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
+        { time: '21.00-22.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
+        { time: '22.00-23.00', C1: 'ว่าง', C2: 'ว่าง', C3: 'ว่าง', C4: 'ว่าง', C5: 'ว่าง', C6: 'ว่าง' },
     ];
 };
 
 // =====================================================================
-// 🏀 MAIN PAGE
+// 🏸 MAIN PAGE
 // =====================================================================
 const BadmintonBookingPage = () => {
     const navigate = useNavigate();
@@ -77,10 +77,9 @@ const BadmintonBookingPage = () => {
     const buttonColor = 'bg-[#77AADD]';
     const tableHeaderColor = 'bg-[#EDE7F6]';
 
-    // State
     const [bookingData, setBookingData] = useState(loadBookingData);
     const [isMaxLimitReached, setIsMaxLimitReached] = useState(
-        sessionStorage.getItem("hasBooked") === "true"
+        sessionStorage.getItem("badmintonHasBooked") === "true"
     );
 
     const [selectedCourt, setSelectedCourt] = useState('');
@@ -95,17 +94,17 @@ const BadmintonBookingPage = () => {
     };
 
     const courtHeaders = ['สนาม 1', 'สนาม 2', 'สนาม 3', 'สนาม 4', 'สนาม 5', 'สนาม 6'];
-    const courtKeys = ['C1', 'C2','C3', 'C4','C5', 'C6'];
+    const courtKeys = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6'];
     const timeOptions = bookingData.map((d) => d.time);
 
     // =====================================================================
-    // 🧩 HANDLE BOOKING (SESSION STORAGE VERSION)
+    // HANDLE BOOKING
     // =====================================================================
     const handleBooking = (e) => {
         e.preventDefault();
 
         if (isMaxLimitReached) {
-            showCustomAlert("คุณได้ทำการจองแล้วในเซสชันนี้");
+            showCustomAlert("คุณได้ทำการจองแบดมินตันแล้วในเซสชันนี้");
             return;
         }
 
@@ -120,7 +119,6 @@ const BadmintonBookingPage = () => {
             return;
         }
 
-        // Update booking status
         const newBookingData = bookingData.map(row => {
             if (row.time === selectedTime) {
                 return { ...row, [selectedCourt]: "จองแล้ว" };
@@ -130,17 +128,13 @@ const BadmintonBookingPage = () => {
 
         setBookingData(newBookingData);
 
-        // ⭐ Save to sessionStorage
         sessionStorage.setItem("badmintonBooking", JSON.stringify(newBookingData));
-        sessionStorage.setItem("hasBooked", "true");
+        sessionStorage.setItem("badmintonHasBooked", "true");
 
         setIsMaxLimitReached(true);
         showCustomAlert("จองสำเร็จแล้ว!");
     };
 
-    // =====================================================================
-    // UI
-    // =====================================================================
     return (
         <div className={`min-h-screen ${primaryBackgroundColor} p-4 md:p-8`}>
             {showModal && <BookingModal message={modalMessage} onClose={() => setShowModal(false)} />}
@@ -166,7 +160,7 @@ const BadmintonBookingPage = () => {
                     <div className="flex items-start p-4 bg-orange-100 border-l-4 border-orange-500 text-orange-800 rounded-xl shadow-md">
                         <AlertTriangle className="w-6 h-6 mr-3 mt-0.5 text-orange-600" />
                         <p className="font-semibold text-gray-800">
-                            คุณจองแบดมินตันครบ 1 ชั่วโมงแล้วในวันนี้ - แต่คุณยังสามารถจองกีฬาประเภทอื่นได้
+                            คุณได้จองแบดมินตันครบ 1 ชั่วโมงแล้ว — แต่ยังสามารถจองกีฬาประเภทอื่นได้
                         </p>
                     </div>
                 )}
@@ -178,7 +172,6 @@ const BadmintonBookingPage = () => {
                     <form onSubmit={handleBooking} className="space-y-4">
                         <div className="flex flex-col sm:flex-row gap-4">
 
-                            {/* Court */}
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">สนาม</label>
                                 <select
@@ -196,7 +189,6 @@ const BadmintonBookingPage = () => {
                                 </select>
                             </div>
 
-                            {/* Time */}
                             <div className="w-full sm:w-1/2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">เวลา</label>
                                 <select

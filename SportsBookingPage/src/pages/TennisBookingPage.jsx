@@ -108,7 +108,7 @@ const TennisBookingPage = () => {
     setShowModal(true)
   }
 
-  const courtHeaders = ['คอร์ด 1','คอร์ด 2','คอร์ด 3','คอร์ด 4']
+  const courtHeaders = ['สนาม 1','สนาม 2','สนาม 3','สนาม 4']
   const courtKeys    = ['C1','C2','C3','C4']
   const timeOptions  = bookingData.map(d => d.time)
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut, ArrowRight, Activity, Calendar } from 'lucide-react';
+import { LogOut, ArrowRight, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 // Card กีฬา (แก้เฉพาะส่วนนี้)
