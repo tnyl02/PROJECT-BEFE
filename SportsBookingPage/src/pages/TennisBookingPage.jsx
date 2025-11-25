@@ -240,7 +240,7 @@ const TennisBookingPage = () => {
               <div className="text-center mt-4 space-y-2">
                 <p className="text-xl font-bold text-green-700">จองสนามสำเร็จ!</p>
                 <div className="w-full bg-gray-300 text-gray-700 font-bold py-3 rounded-lg shadow-md text-lg">
-                  ไม่สามารถจองคอร์ดได้
+                  ไม่สามารถจองสนามได้
                 </div>
               </div>
             ) : (
