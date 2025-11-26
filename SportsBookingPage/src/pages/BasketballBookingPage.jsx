@@ -49,8 +49,8 @@ const BookingModal = ({ message, onClose, isSuccess = false }) => {
                     </button>
                 </div>
                 <p className="text-gray-700">{message}</p>
-                <button 
-                    onClick={onClose} 
+                <button
+                    onClick={onClose}
                     className={`w-full ${isSuccess ? 'bg-green-500 hover:bg-green-600' : 'bg-[#77AADD] hover:bg-[#6699CC]'} text-white font-bold py-2 rounded-lg transition`}
                 >
                     ตกลง
@@ -179,9 +179,7 @@ const BasketballBookingPage = () => {
                 {isMaxLimitReached && (
                     <div className="flex items-start p-4 bg-orange-100 border-l-4 border-orange-500 text-orange-800 rounded-xl shadow-md">
                         <AlertTriangle className="w-6 h-6 mr-3 mt-0.5 text-orange-600" />
-                        <p className="font-semibold text-gray-800">
-                            คุณจองบาสเกตบอลครบ 1 ชั่วโมงแล้ว — แต่ยังสามารถจองกีฬาประเภทอื่นได้
-                        </p>
+                        <p className="font-semibold">คุณจองแบดมินตันครบ 1 ชั่วโมงแล้วในวันนี้ - แต่คุณยังสามารถจองกีฬาประเภทอื่นได้</p>
                     </div>
                 )}
 
@@ -234,8 +232,8 @@ const BasketballBookingPage = () => {
                                 </div>
                             </div>
                         ) : (
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 className={`w-full ${buttonColor} text-white font-bold py-3 rounded-lg shadow-md hover:bg-[#6699CC] text-lg mt-4`}
                             >
                                 จองสนาม
