@@ -3,7 +3,7 @@ import { ArrowLeft, AlertTriangle, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 // เปลี่ยน key สำหรับเก็บ tennis
-const STORAGE_KEY  = "tennisBooking"
+const STORAGE_KEY = "tennisBooking"
 const STORAGE_FLAG = "hasBookedTennis"
 
 // =====================================================================
@@ -35,32 +35,32 @@ const BookingModal = ({ message, onClose, isSuccess = false }) => {
   const title = isSuccess ? 'สำเร็จ' : 'แจ้งเตือน';
 
   return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm space-y-4">
-              <div className="flex justify-between items-center border-b pb-3">
-                  <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                      {isSuccess ? (
-                          <svg xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${iconColor} mr-2`} viewBox="0 0 20 20" fill="currentColor">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                      ) : (
-                          <AlertTriangle className={`w-5 h-5 ${iconColor} mr-2`} />
-                      )}
-                      {title}
-                  </h3>
-                  <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition">
-                      <X className="w-5 h-5 text-gray-500" />
-                  </button>
-              </div>
-              <p className="text-gray-700">{message}</p>
-              <button 
-                  onClick={onClose} 
-                  className={`w-full ${isSuccess ? 'bg-green-500 hover:bg-green-600' : 'bg-[#77AADD] hover:bg-[#6699CC]'} text-white font-bold py-2 rounded-lg transition`}
-              >
-                  ตกลง
-              </button>
-          </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm space-y-4">
+        <div className="flex justify-between items-center border-b pb-3">
+          <h3 className="text-xl font-bold text-gray-800 flex items-center">
+            {isSuccess ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${iconColor} mr-2`} viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <AlertTriangle className={`w-5 h-5 ${iconColor} mr-2`} />
+            )}
+            {title}
+          </h3>
+          <button onClick={onClose} className="p-1 rounded-full hover:bg-gray-100 transition">
+            <X className="w-5 h-5 text-gray-500" />
+          </button>
+        </div>
+        <p className="text-gray-700">{message}</p>
+        <button
+          onClick={onClose}
+          className={`w-full ${isSuccess ? 'bg-green-500 hover:bg-green-600' : 'bg-[#77AADD] hover:bg-[#6699CC]'} text-white font-bold py-2 rounded-lg transition`}
+        >
+          ตกลง
+        </button>
       </div>
+    </div>
   );
 };
 
@@ -95,9 +95,9 @@ const loadTennisBooking = () => {
 const TennisBookingPage = () => {
   const navigate = useNavigate()
 
-  const primaryBg     = 'bg-[#B0C4DE]'
-  const cardBg        = 'bg-[#FFFACD]'
-  const buttonColor   = 'bg-[#77AADD]'
+  const primaryBg = 'bg-[#B0C4DE]'
+  const cardBg = 'bg-[#FFFACD]'
+  const buttonColor = 'bg-[#77AADD]'
   const tableHdrColor = 'bg-[#EDE7F6]'
 
   const [bookingData, setBookingData] = useState(loadTennisBooking)
@@ -113,14 +113,14 @@ const TennisBookingPage = () => {
   const [isModalSuccess, setIsModalSuccess] = useState(false)
 
   const showCustomAlert = (message, isSuccess = false) => {
-      setModalMessage(message);
-      setIsModalSuccess(isSuccess);
-      setShowModal(true);
+    setModalMessage(message);
+    setIsModalSuccess(isSuccess);
+    setShowModal(true);
   };
 
-  const courtHeaders = ['สนาม 1','สนาม 2','สนาม 3','สนาม 4']
-  const courtKeys    = ['C1','C2','C3','C4']
-  const timeOptions  = bookingData.map(d => d.time)
+  const courtHeaders = ['สนาม 1', 'สนาม 2', 'สนาม 3', 'สนาม 4']
+  const courtKeys = ['C1', 'C2', 'C3', 'C4']
+  const timeOptions = bookingData.map(d => d.time)
 
   // ===================================================================
   // 📌 HANDLE BOOKING
@@ -133,7 +133,7 @@ const TennisBookingPage = () => {
       return
     }
     if (!selectedCourt || !selectedTime) {
-      showCustomAlert('กรุณาเลือกคอร์ดและเวลา')
+      showCustomAlert('กรุณาเลือกสนามและเวลา')
       return
     }
 
@@ -171,7 +171,7 @@ const TennisBookingPage = () => {
       )}
 
       <div className="max-w-6xl mx-auto space-y-8 rounded-3xl bg-gray-50 p-6 shadow-2xl">
-        
+
         <header className="flex flex-col items-start mb-6">
           <button
             onClick={() => navigate('/home')}
@@ -183,35 +183,33 @@ const TennisBookingPage = () => {
 
           <div>
             <h1 className="text-3xl font-bold text-gray-900">เทนนิส</h1>
-            <p className="text-base text-gray-700">เลือกคอร์ดและเวลา</p>
+            <p className="text-base text-gray-700">เลือกสนามและเวลาที่ต้องการ</p>
           </div>
         </header>
 
         {isMaxLimitReached && (
           <div className="flex items-start p-4 bg-orange-100 border-l-4 border-orange-500 text-orange-800 rounded-xl shadow-md">
             <AlertTriangle className="w-6 h-6 mr-3 mt-0.5 text-orange-600" />
-            <p className="font-semibold text-gray-800">
-              คุณจองเทนนิสครบ 1 ชั่วโมงแล้วในวันนี้
-            </p>
+            <p className="font-semibold">คุณจองแบดมินตันครบ 1 ชั่วโมงแล้วในวันนี้ - แต่คุณยังสามารถจองกีฬาประเภทอื่นได้</p>
           </div>
         )}
 
         {/* Booking Form */}
         <section className={`p-6 rounded-xl shadow-xl ${cardBg} space-y-4`}>
-          <h3 className="text-xl font-bold text-gray-700">เลือกคอร์ดและเวลา</h3>
+          <h3 className="text-xl font-bold text-gray-700">เลือกสนามและเวลา</h3>
 
           <form onSubmit={handleBooking} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">คอร์ด</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">สนาม</label>
                 <select
                   className="w-full px-4 py-3 rounded-lg bg-white shadow-sm"
                   value={selectedCourt}
                   onChange={e => setSelectedCourt(e.target.value)}
                   disabled={isMaxLimitReached}
                 >
-                  <option value="">เลือกคอร์ด</option>
+                  <option value="">เลือกสนาม</option>
                   {courtHeaders.map((hdr, i) => (
                     <option key={i} value={courtKeys[i]}>
                       {hdr}
@@ -244,11 +242,11 @@ const TennisBookingPage = () => {
                 </div>
               </div>
             ) : (
-              <button 
+              <button
                 type="submit"
                 className={`w-full ${buttonColor} text-white font-bold py-3 rounded-lg shadow-md hover:bg-[#6699CC] text-lg mt-4`}
               >
-                จองคอร์ด
+                จองสนาม
               </button>
             )}
           </form>

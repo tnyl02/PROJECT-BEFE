@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import { ArrowLeft, AlertTriangle, Volleyball, X } from 'lucide-react'; 
+import { ArrowLeft, AlertTriangle, X } from 'lucide-react'; 
 
 // ================== Modal Component =====================
 const BookingModal = ({ message, onClose, isSuccess = false }) => {
@@ -170,10 +170,9 @@ const VolleyballBookingPage = () => {
                     </button>
                     
                     <div className="flex items-center space-x-3">
-                        <Volleyball className="w-8 h-8 text-[#77AADD]" />
                         <div>
                             <h1 className="text-3xl font-extrabold text-gray-900">วอลเลย์บอล</h1>
-                            <p className="text-base text-gray-700">เลือกสนามและเวลา</p>
+                            <p className="text-base text-gray-700">เลือกสนามและเวลาที่ต้องการ</p>
                         </div>
                     </div>
                 </header>
@@ -245,7 +244,7 @@ const VolleyballBookingPage = () => {
 
                 {/* Table */}
                 <section className={`p-6 rounded-xl shadow-xl ${cardBackgroundColor}`}>
-                    <h3 className="text-xl font-bold text-gray-700 mb-4">ตารางการจอง (สนาม1)</h3>
+                    <h3 className="text-xl font-bold text-gray-700 mb-4">ตารางการจอง </h3>
                     
                     <div className="overflow-x-auto rounded-xl"> 
                         <table className="w-full border-separate border-spacing-1">
