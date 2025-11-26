@@ -1,6 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut, ArrowRight, Calendar } from 'lucide-react';
+import { LogOut, ArrowRight, Calendar, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+
+const ProfileMenu = ({ onLogout, onProfile }) => {
+    const [open, setOpen] = React.useState(false);
+
+    return (
+        <div className="relative">
+            {/* ปุ่มกลม User Icon */}
+            <button
+                onClick={() => setOpen(!open)}
+                className="w-12 h-12 rounded-full bg-gray-100 shadow-md flex items-center justify-center hover:bg-gray-200 transition"
+            >
+                <User className="w-6 h-6 text-gray-700" />
+            </button>
+
+            {/* เมนูโปรไฟล์ */}
+            {open && (
+                <div className="absolute right-0 mt-3 w-56 bg-white shadow-xl rounded-2xl p-4 z-50">
+                    <div className="flex flex-col space-y-3">
+                        
+                        {/* ไปหน้าโปรไฟล์ */}
+                        <button
+                            onClick={() => {
+                                onProfile();
+                                setOpen(false);
+                            }}
+                            className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg"
+                        >
+                            <User className="w-5 h-5 text-gray-700" />
+                            <span className="text-gray-800 font-medium">ข้อมูลส่วนตัว</span>
+                        </button>
+
+                        {/* ออกจากระบบ */}
+                        <button
+                            onClick={() => {
+                                onLogout();
+                                setOpen(false);
+                            }}
+                            className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg"
+                        >
+                            <LogOut className="w-5 h-5 text-red-600" />
+                            <span className="text-red-600 font-semibold">ออกจากระบบ</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
 // Card กีฬา (แก้เฉพาะส่วนนี้)
 const SportCard = ({ title, icon: Icon, imageSrc, onClick }) => (
@@ -69,8 +117,6 @@ const HomePage = () => {
 
     const primaryBackgroundColor = 'bg-[#B0C4DE]';
     const cardBackgroundColor = 'bg-[#FFFACD]';
-    const logoutButtonColor = 'bg-red-400';
-    const logoutButtonHoverColor = 'hover:bg-red-500';
 
     const goToBadmintonBooking = () => navigate('/book/badminton');
     const goToBasketballBooking = () => navigate('/book/basketball');
@@ -93,13 +139,10 @@ const HomePage = () => {
                         </h1>
                         <p className="text-base text-gray-700">สมาชิก</p>
                     </div>
-                    <button 
-                        className={`flex items-center space-x-2 ${logoutButtonColor} text-white font-bold px-5 py-3 rounded-xl shadow-md ${logoutButtonHoverColor} transition duration-150`}
-                        onClick={handleLogout}
-                    >
-                        <span>ออกจากระบบ</span>
-                        <LogOut className="w-5 h-5" />
-                    </button>
+                    <ProfileMenu 
+                        onLogout={handleLogout}
+                        onProfile={() => navigate('/profile')}
+                    />
                 </header>
 
                 <hr className="border-gray-200" />
@@ -154,7 +197,7 @@ const HomePage = () => {
                         <h3 className="text-xl font-bold text-gray-700">ระเบียบการจองสนาม</h3>
                         <ol className="list-decimal list-inside text-sm text-gray-700 space-y-2 ml-4">
                             <li>เริ่มการลงจองสนามได้ตั้งแต่เวลา 12:00 น. ของแต่ละวัน เป็นต้นไป และจะล้างข้อมูลการจองทั้งหมดในเวลา 12:00 น.วันถัดไป</li>
-                            <li>ลงทะเบียน 1 คน สามารถจองสนามแต่ละประเภทได้ 1 ครั้งต่อวัน</li>
+                            <li>ลงทะเบียน 1 คน สามารถจองได้ 1 ครั้งต่อวัน</li>
                             <li>หากมีการจองซ้ำในคอร์ดเดียวกัน ระบบจะให้สิทธิ์ผู้ที่ยืนยันก่อน</li>
                             <li>พบปัญหาแจ้งทาง Line OpenChat</li>
                         </ol>

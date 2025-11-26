@@ -9,6 +9,7 @@ import AdminPage from "./pages/AdminPage";
 import RegisterPage from './pages/RegisterPage';
 // นำเข้าคอมโพเนนต์หน้าเว็บของคุณ
 import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 
 // นำเข้าหน้าจองสนามต่างๆ
 import BadmintonBookingPage from './pages/BadmintonBookingPage';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
 
           {/* Route สำหรับหน้าจองสนาม */}
           <Route path="/book/badminton" element={<BadmintonBookingPage />} />
